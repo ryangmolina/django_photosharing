@@ -1,0 +1,14 @@
+{% extends 'photosharing/layouts/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-6 mx-auto">
+        <h2>Invite users</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary btn-block my-4">Invite</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

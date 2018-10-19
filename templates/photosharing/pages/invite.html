@@ -1,0 +1,13 @@
+{% extends 'photosharing/layouts/base.html' %}
+
+{% block content %}
+<ul>
+    {% for invite in invites %}
+        <li>{{ invite.invited }} to join {{ invite.inviter }}
+            <br />
+            <a href="{% url 'invites:invite_accept' invite.id %}">Accept</a> |
+            <a href="{% url 'invites:invite_reject' invite.id %}">Reject</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
