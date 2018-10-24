@@ -22,9 +22,7 @@ class InviteCreateView(LoginRequiredMixin, generic.CreateView):
     fields = ['invited']
     template_name = 'photosharing/pages/create_invite.html'
 
-
     def form_valid(self, form):
-        form.instance.invited = User.objects.get(pk=self.request.POST.get('invited'))
         form.instance.inviter = Team.objects.get(pk=self.kwargs.get('pk'))
         self.object = form.save()
         return super().form_valid(form)
@@ -57,7 +55,7 @@ class InviteAcceptView(LoginRequiredMixin, generic.RedirectView):
     def get(self, request, *args, **kwargs):
         invite = Invite.objects.get(pk=self.kwargs.get('pk'))
         inviter = invite.inviter
-        invited = invite.user
+        invited = invite.invited
         inviter.members.add(invited)
         inviter.save()
 
@@ -65,5 +63,4 @@ class InviteAcceptView(LoginRequiredMixin, generic.RedirectView):
         return super().get(request, *args, **kwargs)
 
     def get_redirect_url(self, *args, **kwargs):
-        return reverse('photosharing:invite_list',
-                       kwargs={'pk': self.request.user.id})
+        return reverse('invites:invite_list')
