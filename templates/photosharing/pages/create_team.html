@@ -5,7 +5,11 @@
     <div class="row">
         <div class="col-6 mx-auto">
             <h1 class="page-header">Create Team</h1>
-            {% include 'photosharing/partials/team/team_form.html' %}
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary btn-block mt-4">Create</button>
+            </form>
         </div>
     </div>
 </div>
