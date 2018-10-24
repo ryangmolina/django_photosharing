@@ -7,9 +7,24 @@ from .forms import PhotoUploadForm
 from .models import Photo, Team
 
 
-class PostListView(generic.ListView):
+class PhotoListView(generic.ListView):
     model = Photo
     template_name = 'photosharing/pages/home.html'
+    context_object_name = 'photos'
+
+    def get_queryset(self):
+        return Photo.objects.filter(public=True)
+
+
+class TeamPhotoListView(generic.ListView):
+    model = Photo
+    template_name = 'photosharing/pages/photo_list.html'
+    context_object_name = 'photos'
+
+    def get_queryset(self):
+        return Photo.objects.filter(
+            uploaded_to=self.kwargs.get('pk')
+        )
 
 
 class TeamListView(LoginRequiredMixin, generic.ListView):
@@ -26,7 +41,7 @@ class TeamListView(LoginRequiredMixin, generic.ListView):
 
 class TeamCreateView(LoginRequiredMixin, generic.CreateView):
     model = Team
-    fields = ['name']
+    fields = ['name', 'description', 'logo']
     template_name = 'photosharing/pages/create_team.html'
 
     def form_valid(self, form):
