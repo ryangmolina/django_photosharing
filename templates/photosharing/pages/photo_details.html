@@ -2,4 +2,6 @@
 
 {% block content %}
 <img src="/{{ photo.photo.url }}" />
+<p>Description: {{ photo.description }}</p>
+<p>Is public: {{ photo.public }}</p>
 {% endblock %}
