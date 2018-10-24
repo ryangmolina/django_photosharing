@@ -1,5 +1,17 @@
 {% extends 'photosharing/layouts/base.html' %}
 
 {% block content %}
-
+<div class="card-columns">
+    {% for photo in photos %}
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="/{{ photo.photo.url }}" alt="Card image cap" />
+            <div class="card-body">
+                <p class="card-text">{{ photo.description }}</p>
+                <a href="{% url 'photosharing:photo_details' photo.id %}" class="btn btn-primary">Details</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>No available public photos</p>
+    {% endfor %}
+</div>
 {% endblock %}

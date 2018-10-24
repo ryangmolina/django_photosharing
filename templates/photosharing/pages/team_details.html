@@ -1,9 +1,10 @@
-{% extends '../layouts/base.html' %}
+{% extends 'photosharing/layouts/base.html' %}
 
 {% block content %}
 <div class="container">
     <h1>{{ team.name }}</h1>
-    <a href="{% url 'invites:invite_user' team.id %}">Invite user</a>
-    <a href="{% url 'photosharing:team_photo_upload' team.id %}">Upload Photo</a>
+    <a href="{% url 'invites:invite_user' team.id %}">Invite user | </a>
+    <a href="{% url 'photosharing:team_photo_upload' team.id %}">Upload Photo | </a>
+    <a href="{% url 'photosharing:team_photo_list' team.id %}">Photo List</a>
 </div>
 {% endblock %}
