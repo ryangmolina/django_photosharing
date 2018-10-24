@@ -1,0 +1,22 @@
+version: '3.6'
+
+services:
+  db:
+    image: postgres:10.1-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/ # Tell Compose where the container should be located in Docker container
+  web:
+    build: . # build image
+    command: python /photosharing_site/manage.py migrate --noinput # run migrations
+    command: python /photosharing_site/manage.py runserver 0.0.0.0:8000 # runserver
+    volumes:
+      - .:/photosharing_site # tell Compose to store code in Docker container  at /photosharing_site
+    ports:
+      - 8000:8000 # own port : docker port
+    environment:
+      - SECRET_KEY=changemeinprod
+    depends_on:
+      - db # start running db first before web services
+
+volumes:
+  postgres_data:
