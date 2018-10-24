@@ -1,5 +1,4 @@
 Django
 Pillow
-pkg-resources
 psycopg2
 pytz
